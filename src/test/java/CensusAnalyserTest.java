@@ -29,12 +29,22 @@ public class CensusAnalyserTest {
     }
 
     @Test
-    public void givenStateCensusCsvFile_IfDoesntExists_ShouldThroeCensusAnalyserException() throws CensusAnalyserException {
+    public void givenStateCensusCsvFile_IfDoesntExists_ShouldThrowCensusAnalyserException() throws CensusAnalyserException {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             int noOfRecords = censusAnalyser.loadCensusData(WRONG_FILE);
         }catch (CensusAnalyserException censusAnalyserException){
             Assert.assertEquals(CensusAnalyserException.ExceptionType.NO_SUCH_FILE,censusAnalyserException.type);
+        }
+    }
+
+    @Test
+    public void givenStateCensusFile_WhenHeadersIncorrect_ShouldThrowCensusAnalyserException() throws CensusAnalyserException {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            int noOfRecords = censusAnalyser.loadCensusData(STATE_CODE_FILE);
+        }catch (CensusAnalyserException censusAnalyserException){
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.INCORRECT_DATA_ISSUE,censusAnalyserException.type);
         }
     }
 }
