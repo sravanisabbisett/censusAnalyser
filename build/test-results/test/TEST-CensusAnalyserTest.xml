@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="CensusAnalyserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-11-05T05:20:52" hostname="DESKTOP-62HQPBS" time="0.14">
+<testsuite name="CensusAnalyserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-11-05T05:27:59" hostname="DESKTOP-62HQPBS" time="0.131">
   <properties/>
-  <testcase name="givenStateCodeCsvFile_ItHasCorrectNumber_ShouldMatchRecords" classname="CensusAnalyserTest" time="0.14"/>
+  <testcase name="givenStateCodeCsvFile_WhenCorrect_ButFileExtensionIncorrect_ShouldThrowCensusAnalyserException" classname="CensusAnalyserTest" time="0.131"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
