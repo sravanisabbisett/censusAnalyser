@@ -47,4 +47,10 @@ public class CensusAnalyserTest {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.INCORRECT_DATA_ISSUE,censusAnalyserException.type);
         }
     }
+    @Test
+    public void givenStateCodeCsvFile_ItHasCorrectNumber_ShouldMatchRecords() throws CensusAnalyserException {
+        CensusAnalyser censusAnalyser=new CensusAnalyser();
+        int numOfRecords=censusAnalyser.loadStateCode(STATE_CODE_FILE);
+        Assert.assertEquals(37,numOfRecords);
+    }
 }
