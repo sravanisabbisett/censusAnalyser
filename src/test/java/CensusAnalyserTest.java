@@ -1,4 +1,5 @@
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -11,56 +12,62 @@ public class CensusAnalyserTest {
     public static final String STATE_CODE_FILE="C:\\Users\\PC\\IdeaProjects\\StateCensusAnalysis1\\src\\main\\java\\StateCode.csv";
     public static final String WRONG_FILE="C:\\Users\\PC\\IdeaProjects\\StateCensusAnalysis1\\src\\main\\java\\StateCode.txt";
     public static final String STATE_CENSUS_FILE_WRONG_DELIMITER="C:\\Users\\PC\\IdeaProjects\\StateCensusAnalysis1\\src\\main\\java\\StateCensusData 1.csv";
+    public static final String STATE_CENSUS_FILE_WRONG_HEADER="C:\\Users\\PC\\IdeaProjects\\StateCensusAnalysis1\\src\\main\\java\\StateCensusData.csv";
+    public static final String STATE_CODE_FILE_WRONG_HEADER="C:\\Users\\PC\\IdeaProjects\\StateCensusAnalysis1\\src\\main\\java\\StateCodeWrongHeader.csv";
+    public static final String STATE_CENSUS_FILE_WRONG_FILE_EXTENSION="C:\\Users\\PC\\IdeaProjects\\StateCensusAnalysis1\\src\\test\\java\\StateCensusData.csv";
+    public static final String STATE_CODE_FILE_WRONG_FILE_EXTENSION="C:\\Users\\PC\\IdeaProjects\\StateCensusAnalysis1\\src\\test\\java\\StateCodeData.csv";
+    public static final String STATE_CODE_FILE_WRONG_DELIMITER="C:\\Users\\PC\\IdeaProjects\\StateCensusAnalysis1\\src\\main\\java\\StateCodeWrongDelimiter.csv";
+
+    CensusAnalyser censusAnalyser;
+
+    @Before
+    public void setUp() throws Exception {
+        censusAnalyser=new CensusAnalyser();
+    }
 
     @Test
     public void givenStateCensusCsvFile_ItHasCorrectNumber_ShouldMatchRecords() throws CensusAnalyserException {
-        CensusAnalyser censusAnalyser=new CensusAnalyser();
         int numOfRecords=censusAnalyser.loadCensusData(STATE_CENSUS_FILE);
         Assert.assertEquals(29,numOfRecords);
     }
 
     @Test
-    public void givenStateCensusCsvFile_WhenCorrect_ButFileExtensionIncorrect_ShouldThrowCensusAnalyserException(){
-        try {
-            CensusAnalyser censusAnalyser=new CensusAnalyser();
-            int numOfRecords=censusAnalyser.loadCensusData(STATE_CODE_FILE);
-        }catch (CensusAnalyserException censusAnalyserException){
-            Assert.assertEquals(CensusAnalyserException.ExceptionType.INCORRECT_DATA_ISSUE,censusAnalyserException.type);
+    public void givenStateCensusCsvFile_WhenCorrect_ButFileExtensionIncorrect_ShouldThrowCensusAnalyserException() throws CensusAnalyserException {
+        try{
+            int noOfRecords=censusAnalyser.loadStateCode(STATE_CENSUS_FILE_WRONG_FILE_EXTENSION);
+        }catch (CensusAnalyserException censusAnalyserException) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM,censusAnalyserException.type);
         }
     }
 
     @Test
     public void givenStateCensusCsvFile_IfDoesntExists_ShouldThrowCensusAnalyserException(){
         try {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
             int noOfRecords = censusAnalyser.loadCensusData(WRONG_FILE);
         }catch (CensusAnalyserException censusAnalyserException){
-            Assert.assertEquals(CensusAnalyserException.ExceptionType.NO_SUCH_FILE,censusAnalyserException.type);
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM,censusAnalyserException.type);
         }
     }
 
     @Test
-    public void givenStateCensusFile_WhenHeadersIncorrect_ShouldThrowCensusAnalyserException(){
+    public void givenStateCensusFileCorrect_WhenHeadersIncorrect_ShouldThrowCensusAnalyserException(){
         try {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
-            int noOfRecords = censusAnalyser.loadCensusData(STATE_CODE_FILE);
+            int noOfRecords = censusAnalyser.loadCensusData(STATE_CENSUS_FILE_WRONG_HEADER);
         }catch (CensusAnalyserException censusAnalyserException){
-            Assert.assertEquals(CensusAnalyserException.ExceptionType.INCORRECT_DATA_ISSUE,censusAnalyserException.type);
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.INCORRECT_FILE_ISSUE,censusAnalyserException.type);
         }
     }
     @Test
-        public void givenstateCensusFile_WhenInvalidDelimiter_ShouldThrowCensusAnalysisException(){
+        public void givenStateCensusFile_WhenInvalidDelimiter_ShouldThrowCensusAnalysisException(){
         try{
-            CensusAnalyser censusAnalyser=new CensusAnalyser();
             int noOfRecords=censusAnalyser.loadCensusData(STATE_CENSUS_FILE_WRONG_DELIMITER);
         }catch (CensusAnalyserException censusAnalyserException){
-            Assert.assertEquals(CensusAnalyserException.ExceptionType.INCORRECT_DATA_ISSUE,censusAnalyserException.type);
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.INCORRECT_FILE_ISSUE,censusAnalyserException.type);
         }
     }
 
     @Test
     public void givenStateCodeCsvFile_ItHasCorrectNumber_ShouldMatchRecords() throws CensusAnalyserException {
-        CensusAnalyser censusAnalyser=new CensusAnalyser();
         int numOfRecords=censusAnalyser.loadStateCode(STATE_CODE_FILE);
         Assert.assertEquals(37,numOfRecords);
     }
@@ -68,30 +75,36 @@ public class CensusAnalyserTest {
     @Test
     public void givenStateCodeCsvFile_WhenCorrect_ButFileExtensionIncorrect_ShouldThrowCensusAnalyserException(){
         try {
-            CensusAnalyser censusAnalyser=new CensusAnalyser();
-            int numOfRecords=censusAnalyser.loadStateCode(STATE_CENSUS_FILE);
+            int numOfRecords=censusAnalyser.loadStateCode(STATE_CODE_FILE_WRONG_FILE_EXTENSION);
         }catch (CensusAnalyserException censusAnalyserException){
-            Assert.assertEquals(CensusAnalyserException.ExceptionType.INCORRECT_DATA_ISSUE,censusAnalyserException.type);
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM,censusAnalyserException.type);
         }
     }
 
     @Test
     public void givenStateCodeCsvFile_IfDoesntExists_ShouldThrowCensusAnalyserException(){
         try {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
             int noOfRecords = censusAnalyser.loadStateCode(WRONG_FILE);
         }catch (CensusAnalyserException censusAnalyserException){
-            Assert.assertEquals(CensusAnalyserException.ExceptionType.NO_SUCH_FILE,censusAnalyserException.type);
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM,censusAnalyserException.type);
         }
     }
 
     @Test
-    public void givenStateCodeFile_WhenHeadersIncorrect_ShouldThrowCensusAnalyserException(){
+    public void givenStateCodeFileCorrect_WhenHeadersIncorrect_ShouldThrowCensusAnalyserException(){
         try {
-            CensusAnalyser censusAnalyser = new CensusAnalyser();
-            int noOfRecords = censusAnalyser.loadStateCode(STATE_CENSUS_FILE);
+            int noOfRecords = censusAnalyser.loadStateCode(STATE_CODE_FILE_WRONG_HEADER);
         }catch (CensusAnalyserException censusAnalyserException){
-            Assert.assertEquals(CensusAnalyserException.ExceptionType.INCORRECT_DATA_ISSUE,censusAnalyserException.type);
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.INCORRECT_FILE_ISSUE,censusAnalyserException.type);
+        }
+    }
+
+    @Test
+    public void givenStateCodeFile_WhenInvalidDelimiter_ShouldThrowCensusAnalysisException(){
+        try{
+            int noOfRecords=censusAnalyser.loadCensusData(STATE_CODE_FILE_WRONG_DELIMITER);
+        }catch (CensusAnalyserException censusAnalyserException){
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.INCORRECT_FILE_ISSUE,censusAnalyserException.type);
         }
     }
 }
