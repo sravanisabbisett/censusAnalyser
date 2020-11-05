@@ -10,6 +10,7 @@ public class CensusAnalyserTest {
     public static final String STATE_CENSUS_FILE="C:\\Users\\PC\\IdeaProjects\\StateCensusAnalysis1\\src\\main\\java\\StateCensusData.csv";
     public static final String STATE_CODE_FILE="C:\\Users\\PC\\IdeaProjects\\StateCensusAnalysis1\\src\\main\\java\\StateCode.csv";
     public static final String WRONG_FILE="C:\\Users\\PC\\IdeaProjects\\StateCensusAnalysis1\\src\\main\\java\\StateCode.txt";
+    public static final String STATE_CENSUS_FILE_WRONG_DELIMITER="C:\\Users\\PC\\IdeaProjects\\StateCensusAnalysis1\\src\\main\\java\\StateCensusData 1.csv";
 
     @Test
     public void givenStateCensusCsvFile_ItHasCorrectNumber_ShouldMatchRecords() throws CensusAnalyserException {
@@ -43,6 +44,15 @@ public class CensusAnalyserTest {
         try {
             CensusAnalyser censusAnalyser = new CensusAnalyser();
             int noOfRecords = censusAnalyser.loadCensusData(STATE_CODE_FILE);
+        }catch (CensusAnalyserException censusAnalyserException){
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.INCORRECT_DATA_ISSUE,censusAnalyserException.type);
+        }
+    }
+    @Test
+        public void givenstateCensusFile_WhenInvalidDelimiter_ShouldThrowCensusAnalysisException(){
+        try{
+            CensusAnalyser censusAnalyser=new CensusAnalyser();
+            int noOfRecords=censusAnalyser.loadCensusData(STATE_CENSUS_FILE_WRONG_DELIMITER);
         }catch (CensusAnalyserException censusAnalyserException){
             Assert.assertEquals(CensusAnalyserException.ExceptionType.INCORRECT_DATA_ISSUE,censusAnalyserException.type);
         }
