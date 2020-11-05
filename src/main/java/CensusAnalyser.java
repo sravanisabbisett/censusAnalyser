@@ -4,6 +4,7 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.stream.StreamSupport;
@@ -20,7 +21,9 @@ public class CensusAnalyser{
         Iterable<IndiaCensusCSV> censusCSVIterable = () -> indiaCensusCSVIterator;
         int numOfEntries = (int) StreamSupport.stream(censusCSVIterable.spliterator(), false).count();
         return numOfEntries;
-    }catch (IOException exception){
+        } catch (NoSuchFileException exception){
+        throw new CensusAnalyserException(exception.getMessage(),CensusAnalyserException.ExceptionType.NO_SUCH_FILE);
+        } catch (IOException exception){
             throw new CensusAnalyserException(exception.getMessage(),CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         }catch (IllegalStateException exception){
             throw new CensusAnalyserException(exception.getMessage(),CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
