@@ -27,6 +27,26 @@ public class CensusAnalyser{
             throw new CensusAnalyserException(exception.getMessage(),CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         }catch (IllegalStateException exception){
             throw new CensusAnalyserException(exception.getMessage(),CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
+        }catch (RuntimeException exception){ throw new CensusAnalyserException(exception.getMessage(), CensusAnalyserException.ExceptionType.INCORRECT_DATA_ISSUE);
+        }
+    }
+
+    public int loadStateCode(String filePathCSV) throws CensusAnalyserException {
+        try (Reader reader = Files.newBufferedReader(Paths.get(filePathCSV))){;
+            CsvToBean<IndiaStateCodeCSV> csvToBean = new CsvToBeanBuilder<IndiaStateCodeCSV>(reader)
+                    .withType(IndiaStateCodeCSV.class)
+                    .withIgnoreLeadingWhiteSpace(true)
+                    .build();
+            Iterator<IndiaStateCodeCSV> indiaStateCodeCSVIterator = csvToBean.iterator();
+            Iterable<IndiaStateCodeCSV> indiaStateCodeCSVIterable = () -> indiaStateCodeCSVIterator;
+            int numOfEntries =(int)StreamSupport.stream(indiaStateCodeCSVIterable.spliterator(), false).count();
+            return numOfEntries;
+        } catch (NoSuchFileException exception){
+            throw new CensusAnalyserException(exception.getMessage(),CensusAnalyserException.ExceptionType.NO_SUCH_FILE);
+        } catch (IOException exception){
+            throw new CensusAnalyserException(exception.getMessage(),CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+        }catch (IllegalStateException exception){
+            throw new CensusAnalyserException(exception.getMessage(),CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
         }catch (RuntimeException exception){
             throw new CensusAnalyserException(exception.getMessage(), CensusAnalyserException.ExceptionType.INCORRECT_DATA_ISSUE);
         }
