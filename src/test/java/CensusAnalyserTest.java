@@ -12,7 +12,7 @@ public class CensusAnalyserTest {
     public static final String WRONG_FILE="C:\\Users\\PC\\IdeaProjects\\StateCensusAnalysis1\\src\\main\\java\\StateCode.txt";
 
     @Test
-    public void givenStateCensusCsvFile_ItHasCorrectNumber_ShouldMatchRecords(){
+    public void givenStateCensusCsvFile_ItHasCorrectNumber_ShouldMatchRecords() throws CensusAnalyserException {
         CensusAnalyser censusAnalyser=new CensusAnalyser();
         int numOfRecords=censusAnalyser.loadCensusData(STATE_CENSUS_FILE);
         Assert.assertEquals(29,numOfRecords);
@@ -75,4 +75,13 @@ public class CensusAnalyserTest {
         }
     }
 
+    @Test
+    public void givenStateCodeFile_WhenHeadersIncorrect_ShouldThrowCensusAnalyserException(){
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            int noOfRecords = censusAnalyser.loadStateCode(STATE_CENSUS_FILE);
+        }catch (CensusAnalyserException censusAnalyserException){
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.INCORRECT_DATA_ISSUE,censusAnalyserException.type);
+        }
+    }
 }
