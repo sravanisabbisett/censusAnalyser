@@ -1,3 +1,6 @@
+import java.nio.file.Files
+import java.nio.file.Paths
+
 plugins {
     id 'java'
 }
@@ -14,4 +17,7 @@ dependencies {
 }
 dependencies {
     compile group: 'com.opencsv', name: 'opencsv', version: '5.3'
+}
+dependencies {
+    compile "org.apache.commons:commons-csv:1.5"
 }

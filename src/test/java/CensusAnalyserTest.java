@@ -34,7 +34,7 @@ public class CensusAnalyserTest {
     @Test
     public void givenStateCensusCsvFile_WhenCorrect_ButFileExtensionIncorrect_ShouldThrowCensusAnalyserException() throws CensusAnalyserException {
         try{
-            int noOfRecords=censusAnalyser.loadStateCode(STATE_CENSUS_FILE_WRONG_FILE_EXTENSION);
+            int noOfRecords=censusAnalyser.loadCensusData(STATE_CENSUS_FILE_WRONG_FILE_EXTENSION);
         }catch (CensusAnalyserException censusAnalyserException) {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM,censusAnalyserException.type);
         }
@@ -102,9 +102,10 @@ public class CensusAnalyserTest {
     @Test
     public void givenStateCodeFile_WhenInvalidDelimiter_ShouldThrowCensusAnalysisException(){
         try{
-            int noOfRecords=censusAnalyser.loadCensusData(STATE_CODE_FILE_WRONG_DELIMITER);
+            int noOfRecords=censusAnalyser.loadStateCode(STATE_CODE_FILE_WRONG_DELIMITER);
         }catch (CensusAnalyserException censusAnalyserException){
             Assert.assertEquals(CensusAnalyserException.ExceptionType.INCORRECT_FILE_ISSUE,censusAnalyserException.type);
         }
     }
+
 }
