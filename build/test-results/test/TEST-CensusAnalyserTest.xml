@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="CensusAnalyserTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2020-11-05T15:35:38" hostname="DESKTOP-62HQPBS" time="0.223">
+<testsuite name="CensusAnalyserTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2020-11-05T16:59:03" hostname="DESKTOP-62HQPBS" time="0.304">
   <properties/>
   <testcase name="givenStateCodeCsvFile_WhenCorrect_ButFileExtensionIncorrect_ShouldThrowCensusAnalyserException" classname="CensusAnalyserTest" time="0.004"/>
-  <testcase name="givenStateCodeFile_WhenInvalidDelimiter_ShouldThrowCensusAnalysisException" classname="CensusAnalyserTest" time="0.121"/>
-  <testcase name="givenStateCensusCsvFile_WhenCorrect_ButFileExtensionIncorrect_ShouldThrowCensusAnalyserException" classname="CensusAnalyserTest" time="0.001"/>
-  <testcase name="givenStateCensusCsvFile_ItHasCorrectNumber_ShouldMatchRecords" classname="CensusAnalyserTest" time="0.022"/>
-  <testcase name="givenStateCodeCsvFile_ItHasCorrectNumber_ShouldMatchRecords" classname="CensusAnalyserTest" time="0.016"/>
-  <testcase name="givenStateCensusFileCorrect_WhenHeadersIncorrect_ShouldThrowCensusAnalyserException" classname="CensusAnalyserTest" time="0.012"/>
-  <testcase name="givenStateCensusCsvFile_IfDoesntExists_ShouldThrowCensusAnalyserException" classname="CensusAnalyserTest" time="0.002"/>
-  <testcase name="givenStateCodeFileCorrect_WhenHeadersIncorrect_ShouldThrowCensusAnalyserException" classname="CensusAnalyserTest" time="0.009"/>
-  <testcase name="givenStateCodeCsvFile_IfDoesntExists_ShouldThrowCensusAnalyserException" classname="CensusAnalyserTest" time="0.002"/>
-  <testcase name="givenStateCensusFile_WhenInvalidDelimiter_ShouldThrowCensusAnalysisException" classname="CensusAnalyserTest" time="0.011"/>
+  <testcase name="givenStateCodeFile_WhenInvalidDelimiter_ShouldThrowCensusAnalysisException" classname="CensusAnalyserTest" time="0.124"/>
+  <testcase name="givenStateCensusCsvFile_WhenCorrect_ButFileExtensionIncorrect_ShouldThrowCensusAnalyserException" classname="CensusAnalyserTest" time="0.0"/>
+  <testcase name="givenStateCensusCsvFile_ItHasCorrectNumber_ShouldMatchRecords" classname="CensusAnalyserTest" time="0.029"/>
+  <testcase name="givenStateCodeCsvFile_ItHasCorrectNumber_ShouldMatchRecords" classname="CensusAnalyserTest" time="0.042"/>
+  <testcase name="givenStateCensusFileCorrect_WhenHeadersIncorrect_ShouldThrowCensusAnalyserException" classname="CensusAnalyserTest" time="0.043"/>
+  <testcase name="givenStateCensusCsvFile_IfDoesntExists_ShouldThrowCensusAnalyserException" classname="CensusAnalyserTest" time="0.0"/>
+  <testcase name="givenStateCodeFileCorrect_WhenHeadersIncorrect_ShouldThrowCensusAnalyserException" classname="CensusAnalyserTest" time="0.018"/>
+  <testcase name="givenStateCodeCsvFile_IfDoesntExists_ShouldThrowCensusAnalyserException" classname="CensusAnalyserTest" time="0.001"/>
+  <testcase name="givenStateCensusFile_WhenInvalidDelimiter_ShouldThrowCensusAnalysisException" classname="CensusAnalyserTest" time="0.033"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

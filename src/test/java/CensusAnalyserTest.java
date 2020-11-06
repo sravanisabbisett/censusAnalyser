@@ -20,7 +20,7 @@ public class CensusAnalyserTest {
 
     CensusAnalyser censusAnalyser;
 
-    @Beforeoin
+    @Before
     public void setUp() throws Exception {
         censusAnalyser=new CensusAnalyser();
     }
