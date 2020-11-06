@@ -1,3 +1,4 @@
+import com.google.gson.Gson;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -108,4 +109,17 @@ public class CensusAnalyserTest {
         }
     }
 
+    @Test
+    public void givenIndianCensusData_ShouldSortedOnState_ShouldReturnResult() {
+        String sortedCensusData = null;
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            sortedCensusData = censusAnalyser.getStateWiseSortedCensusData(STATE_CENSUS_FILE);
+            IndiaCensusCSV[] censusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusCSV[].class);
+            Assert.assertEquals("Andhra Pradesh",censusCSV[0].state);
+            Assert.assertEquals("Goa",censusCSV[28].state);
+        } catch (CensusAnalyserException censusAnalyserException) {
+            censusAnalyserException.printStackTrace();
+        }
+    }
 }

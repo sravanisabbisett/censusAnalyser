@@ -13,13 +13,8 @@ public class CommonCsvBuilder<E> implements ICSVBuilder {
 
     @Override
     public List getCsvFileIterator(Reader reader, Class csvClass) throws CSVBuilderException {
-        try {
-            CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT.withHeader(csvClass).withIgnoreHeaderCase());
-            List<CSVRecord> csvList = csvParser.getRecords();
-            return csvList;
-        }catch (IOException ioException){
-            throw new CSVBuilderException(ioException.getMessage(),CSVBuilderException.ExceptionType.UNABLE_TO_PARSE);
-        }
+        return null;
+
     }
 
 }
