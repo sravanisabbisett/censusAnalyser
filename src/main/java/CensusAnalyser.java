@@ -59,7 +59,7 @@ public class CensusAnalyser {
     public String getStateWiseSortedCensusData(String filePath) throws CensusAnalyserException {
         loadCensusData(filePath);
         if(indianCensusCSVList == null || indianCensusCSVList.size() == 0) {
-            throw new CensusAnalyserException("No census data", CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
+            throw new CensusAnalyserException("NO_CENSUS_DATA", CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
         }
         Comparator<IndiaCensusCSV> censusComparator = Comparator.comparing(census -> census.state);
         this.sort(censusComparator);
@@ -67,6 +67,29 @@ public class CensusAnalyser {
         return sortedStateCensusAsJSON;
 
     }
+    public String getPopulationWiseSortedCensusData(String csvFilePath) throws CensusAnalyserException {
+        loadCensusData(csvFilePath);
+        if (indianCensusCSVList == null || indianCensusCSVList.size() == 0) {
+            throw new CensusAnalyserException("NO_CENSUS_DATA", CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
+        }
+        Comparator<IndiaCensusCSV> censusComparator = Comparator.comparing(census -> census.population);
+        this.sort(censusComparator);
+        String sortedStateCensusJson = new Gson().toJson(indianCensusCSVList);
+        return sortedStateCensusJson;
+    }
+
+    public String getAreaWiseSortedCensusData(String csvFilePath) throws CensusAnalyserException {
+        loadCensusData(csvFilePath);
+        if (indianCensusCSVList == null || indianCensusCSVList.size() == 0) {
+            throw new CensusAnalyserException("NO_CENSUS_DATA", CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
+        }
+        Comparator<IndiaCensusCSV> censusComparator = Comparator.comparing(census -> census.areaInSqKm);
+        this.sort(censusComparator);
+        String sortedStateCensusJson = new Gson().toJson(indianCensusCSVList);
+        return sortedStateCensusJson;
+    }
+
+
     public void sort(Comparator<IndiaCensusCSV> censusCSVComparator) {
         for(int index = 0; index < indianCensusCSVList.size() - 1; index++) {
             for(int index2 = 0; index2 < indianCensusCSVList.size() - index - 1; index2++) {
