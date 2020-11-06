@@ -4,8 +4,8 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import java.io.Reader;
 import java.util.Iterator;
 
-public class OpenCSVBuilder {
-    public <E> Iterator<E> getCsvFileIterator(Reader reader, Class<E> csvClass) throws CensusAnalyserException {
+public class OpenCSVBuilder<E> implements ICSVBuilder {
+    public  Iterator<E> getCsvFileIterator(Reader reader, Class csvClass) throws CensusAnalyserException {
         try {
             CsvToBean<E> csvToBean = new CsvToBeanBuilder<E>(reader)
                     .withType(csvClass)
