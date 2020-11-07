@@ -17,6 +17,7 @@ public class CensusAnalyser {
     List<IndiaCensusCSV> indianCensusCSVList = null;
     List<IndiaStateCodeCSV> indiaStateCodeCSVList=null;
 
+
     public int loadCensusData(String filePathCSV) throws CensusAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(filePathCSV))) {
             ICSVBuilder csvBuilder=CSVBuilderFactory.createCSVBuilder();
@@ -57,9 +58,27 @@ public class CensusAnalyser {
         int numOfEntries = (int) StreamSupport.stream(csvIterator.spliterator(), false).count();
         return numOfEntries;
     }
+    public int loadDataWithCommonsCSV(String csvFilePath) throws CensusAnalyserException {
+        try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
+            ICommomCsvBuilder commonsCSVBuilder = CommonsCSVBuilderFactory.createCSVBuilder();
+            List<CSVRecord> csvFileList = commonsCSVBuilder.getCsvFileList(reader);
+            return csvFileList.size();
+        } catch (IOException ioException) {
+            throw new CensusAnalyserException(ioException.getMessage(),CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+        }
+    }
 
-    public String getStateWiseSortedCensusData(String Filename) throws CensusAnalyserException {
-        loadCensusData(Filename);
+    public String getStateWiseSortedCensusData(String csvFilepath) throws CensusAnalyserException {
+        loadCensusData(csvFilepath);
+        if(indianCensusCSVList == null || indianCensusCSVList.size() == 0) {
+            throw new CensusAnalyserException("No census data", CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
+        }
+        Comparator<IndiaCensusCSV> censusComparator = Comparator.comparing(census -> census.state);
+        this.sort(indianCensusCSVList, censusComparator);
+        String sortedStateCensusAsJSON = new Gson().toJson(indianCensusCSVList);
+        return sortedStateCensusAsJSON;
+    }
+    public String getStateWiseSortedCensusData1() throws CensusAnalyserException {
         if(indianCensusCSVList == null || indianCensusCSVList.size() == 0) {
             throw new CensusAnalyserException("No census data", CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
         }
