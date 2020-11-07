@@ -8,13 +8,18 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
-public class CommonCsvBuilder<E> implements ICSVBuilder {
+public class CommonCsvBuilder<E> implements ICommomCsvBuilder {
 
     @Override
-    public List getCsvFileIterator(Reader reader, Class csvClass) throws CSVBuilderException {
-        return null;
-
+    public List<CSVRecord> getCsvFileList(Reader reader) throws CensusAnalyserException {
+        try {
+            Iterable<CSVRecord> csvRecordIterable = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader);
+            return StreamSupport.stream(csvRecordIterable.spliterator(),false).collect(Collectors.toList());
+        }catch (IOException ioException){
+            throw new CensusAnalyserException(ioException.getMessage(),CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+        }
     }
-
 }

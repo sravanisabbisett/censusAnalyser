@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="CensusAnalyserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-11-06T16:44:28" hostname="DESKTOP-62HQPBS" time="0.157">
+<testsuite name="CensusAnalyserTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2020-11-07T03:36:45" hostname="DESKTOP-62HQPBS" time="0.187">
   <properties/>
-  <testcase name="givenCensusData_WhenSortedOnPopulation_ShouldReturnSortedResult" classname="CensusAnalyserTest" time="0.157"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[CensusAnalyserException: NO_CENSUS_DATA
-	at CensusAnalyser.getAreaWiseSortedCensusData(CensusAnalyser.java:84)
-	at CensusAnalyserTest.givenCensusData_WhenSortedOnPopulation_ShouldReturnSortedResult(CensusAnalyserTest.java:140)
+  <testcase name="givenCensusData_WhenSortedOnDensity_ShouldReturnSortedResult" classname="CensusAnalyserTest" time="0.187">
+    <failure message="java.lang.AssertionError: expected:&lt;1&gt; but was:&lt;1102&gt;" type="java.lang.AssertionError">java.lang.AssertionError: expected:&lt;1&gt; but was:&lt;1102&gt;
+	at org.junit.Assert.fail(Assert.java:88)
+	at org.junit.Assert.failNotEquals(Assert.java:834)
+	at org.junit.Assert.assertEquals(Assert.java:645)
+	at org.junit.Assert.assertEquals(Assert.java:631)
+	at CensusAnalyserTest.givenCensusData_WhenSortedOnDensity_ShouldReturnSortedResult(CensusAnalyserTest.java:158)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -54,5 +56,8 @@
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:630)
 	at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:56)
 	at java.base/java.lang.Thread.run(Thread.java:832)
-]]></system-err>
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
 </testsuite>
